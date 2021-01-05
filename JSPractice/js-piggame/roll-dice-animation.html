@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        .container{
+            border: 2px solid aqua;
+            max-width: 600px;
+            margin: auto;
+            background-color: hotpink;
+        }
+        .wrap{
+            height: 100px;
+            background-color: hotpink;
+            background: url("./dice-1.png") no-repeat center;
+            background-size: contain;
+            border: 2px solid aqua;
+        }
+        .animate{
+            animation: rolldice 2s;
+        }
+        @keyframes rolldice {
+            0%{background-image: url(./dice-2.png);}
+            16.67%{background-image: url(./dice-3.png);}
+            33.37%{background-image: url(./dice-4.png);}
+            50%{background-image: url(./dice-5.png);}
+            66.67%{background-image: url(./dice-6.png);}
+            83.34%{background-image: url(./dice-1.png);}
+            100%{background-image: url(./dice-6.png);}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wrap">
+            
+        </div>
+        <div style="text-align: center; cursor: pointer;" id='run'>Click me</div>
+        
+    </div>
+
+    <script>
+        //onclick add the animate class to wrap element
+        document.getElementById('run').addEventListener('click',function(){
+            var wrap = document.querySelector('.wrap').classList.add('animate');
+            //then remove it after a 2s timeout;
+            setTimeout(function(){
+                var wrap = document.querySelector('.wrap').classList.remove('animate');
+            },2000);
+            
+        });
+        
+        
+    </script>
+</body>
+</html>

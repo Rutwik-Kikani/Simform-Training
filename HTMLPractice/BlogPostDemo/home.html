@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="hstyle.css" />
+    <script
+      src="https://kit.fontawesome.com/3fd626d453.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="wrapper-inner">
+        <div class="vertical-wrap ">
+          
+          <div class="backdrop "><!--close--></div>
+          <div class="vertical-bar">
+            <div class="profile-info">
+              <div class="img-holder">
+                <img src="./images/author.jpg" alt="profile_pic" />
+              </div>
+              <p class="title">Naruto Uzamaki</p>
+              <p class="sub-title">narutouzamaki@gmail.com</p>
+            </div>
+            <ul class="menu">
+              <li>
+                <a href="#" id="Home" class="active">
+                  <span class="icon">
+                    <i class="fas fa-home"></i>
+                  </span>
+                  <span class="text">Home</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" id="History">
+                  <span class="icon">
+                    <i class="fas fa-file-alt"></i>
+                  </span>
+                  <span class="text">History</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" id="Account">
+                  <span class="icon">
+                    <i class="fas fa-user"></i>
+                  </span>
+                  <span class="text">Account</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" id="Settings">
+                  <span class="icon">
+                    <i class="fas fa-cog"></i>
+                  </span>
+                  <span class="text">Settings</span>
+                </a>
+              </li>
+            </ul>
+            <ul class="social red">
+              <li>
+                <a href="#">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="main-container">
+            <div class="top-bar">
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="logo">
+                    Tour<span> Cooler</span>
+                </div>
+            </div>
+          <div class="content">
+            <div class="item">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
+                    quis officiis, maxime quos aliquam, maiores perferendis doloremque
+                    voluptates quidem temporibus corrupti asperiores. Reiciendis
+                    voluptatum nisi accusantium, mollitia nostrum quae nulla. Alias
+                    amet quis quia ex accusamus quibusdam? Officiis debitis maiores,
+                    eligendi quaerat dolores facilis nemo tenetur qui quas eos
+                    consequatur!</p>
+              
+            </div>
+            <div class="item">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
+                    quis officiis, maxime quos aliquam, maiores perferendis doloremque
+                    voluptates quidem temporibus corrupti asperiores. Reiciendis
+                    voluptatum nisi accusantium, mollitia nostrum quae nulla. Alias
+                    amet quis quia ex accusamus quibusdam? Officiis debitis maiores,
+                    eligendi quaerat dolores facilis nemo tenetur qui quas eos
+                    consequatur!</p>
+              
+            </div>
+            <div class="item">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
+                    quis officiis, maxime quos aliquam, maiores perferendis doloremque
+                    voluptates quidem temporibus corrupti asperiores. Reiciendis
+                    voluptatum nisi accusantium, mollitia nostrum quae nulla. Alias
+                    amet quis quia ex accusamus quibusdam? Officiis debitis maiores,
+                    eligendi quaerat dolores facilis nemo tenetur qui quas eos
+                    consequatur!</p>
+              
+            </div>
+            <div class="item">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
+                    quis officiis, maxime quos aliquam, maiores perferendis doloremque
+                    voluptates quidem temporibus corrupti asperiores. Reiciendis
+                    voluptatum nisi accusantium, mollitia nostrum quae nulla. Alias
+                    amet quis quia ex accusamus quibusdam? Officiis debitis maiores,
+                    eligendi quaerat dolores facilis nemo tenetur qui quas eos
+                    consequatur!</p>
+              
+            </div>
+            <div class="item">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
+                    quis officiis, maxime quos aliquam, maiores perferendis doloremque
+                    voluptates quidem temporibus corrupti asperiores. Reiciendis
+                    voluptatum nisi accusantium, mollitia nostrum quae nulla. Alias
+                    amet quis quia ex accusamus quibusdam? Officiis debitis maiores,
+                    eligendi quaerat dolores facilis nemo tenetur qui quas eos
+                    consequatur!</p>
+              
+            </div>
+            <div class="item">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
+                    quis officiis, maxime quos aliquam, maiores perferendis doloremque
+                    voluptates quidem temporibus corrupti asperiores. Reiciendis
+                    voluptatum nisi accusantium, mollitia nostrum quae nulla. Alias
+                    amet quis quia ex accusamus quibusdam? Officiis debitis maiores,
+                    eligendi quaerat dolores facilis nemo tenetur qui quas eos
+                    consequatur!</p>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var hamburger=document.querySelector(".hamburger");
+      var wrapper=document.querySelector(".wrapper");
+      var backdrop=document.querySelector(".backdrop");
+
+      hamburger.addEventListener("click", function(){
+        wrapper.classList.add("active");
+      });
+      backdrop.addEventListener("click", function(){
+        wrapper.classList.remove("active");
+      });
+
+      
+    </script>
+  </body>
+</html>
