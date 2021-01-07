@@ -44,6 +44,10 @@ function doWhenButtonClicked(calc_btn) {
         } catch(error){
             console.log(error);
             display.value = "Error";
+            setTimeout(() => {
+                resetDisplay();            
+                setToLocalStorage(display.value);
+            },1000);
         }
       }
       break;
@@ -91,7 +95,7 @@ for (let i = 0; i < calc_buttons.length; i++) {
 }
 
 //Esc key press display should be reset
-const validKeyArray = ["1","2","3","4","5","6","7","8","9","0",".","Enter","Escape","+","-","/","*",];
+const validKeyArray = ["1","2","3","4","5","6","7","8","9","0",".","Enter","Escape","+","-","/","*"];
 
 document.onkeydown = function (event) {
   //this line will help you to get when 1,2,3 etc key press how event looks like
