@@ -38,7 +38,7 @@ body{
 
 .calculator span:active{
     background-color: blue;
-}
+} 
 
 .calculator span.clear{
     grid-column: span 2;
@@ -60,5 +60,8 @@ body{
 }
 
 .calculator span.equal:active{
+    background-color: blue;
+}
+.active{
     background-color: blue;
 }
