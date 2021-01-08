@@ -30,7 +30,7 @@ body {
 .sub-main-container {
   position: relative;
   padding: 20px;
-  background-image: url('/BlogPostDemo/images/source2.gif'),url('/BlogPostDemo/images/source1.gif');
+  background-image: url('./images/source2.gif'),url('./images/source1.gif');
   background-repeat: no-repeat, no-repeat;
   background-position: 2vw 2vh, right bottom;
   background-attachment: fixed, fixed;
