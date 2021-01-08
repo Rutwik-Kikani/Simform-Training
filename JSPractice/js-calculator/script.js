@@ -76,13 +76,13 @@ init();
 
 // 2. this approch did not work why? doubt
 //this is a function which will call on display load
-// display.addEventListener("load",function(){
+// window.addEventListener("load",function(){
 //     console.log("Loaded");
 // });
 
 //3. this approch did not work why? becouse i set input field as readonly conform this with mentor
 //add onchange eventlistner to display so that you can add it to localstorage
-// display.addEventListener("oninput", function(){
+// display.addEventListener("input", function(){
 //     console.log("display value is "+ display.value);
 // });
 
