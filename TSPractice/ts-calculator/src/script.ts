@@ -1,8 +1,8 @@
 // Code goes here!
 
 //get all button and display
-let calc_buttons = document.querySelectorAll(".calc-btn")!;
-let display = document.getElementById("display")! as HTMLElement;
+const calc_buttons = document.querySelectorAll(".calc-btn")!;
+const display = document.getElementById("display")! as HTMLElement;
 let dValue='';
 console.log(calc_buttons,display);
 
@@ -16,7 +16,7 @@ function getFromLocalStorage() {
   }
 
 function wrapperGetElementAttribute(element: HTMLElement, attribute: string): string{
-    const attributeValue = element.getAttribute(attribute);
+    let attributeValue = element.getAttribute(attribute);
     if(typeof attributeValue === 'string'){
         return attributeValue;
     }else{
@@ -81,7 +81,7 @@ function doWhenButtonClicked(calc_btn:typeof calc_buttons[0]) {
         }
         break;
       default: {
-         dValue += calc_btn.innerHTML
+         dValue += calc_btn.innerHTML;
          display.setAttribute('value',dValue);
       }
     }
@@ -112,7 +112,7 @@ document.onkeydown = function (event: KeyboardEvent) {
       switch (evt.key) {
         case "Enter":
           {
-            let equal_btn = document.getElementById("equal")!;
+            const equal_btn = document.getElementById("equal")!;
             doWhenButtonClicked(equal_btn);
           }
           break;
@@ -124,7 +124,7 @@ document.onkeydown = function (event: KeyboardEvent) {
           break;
         default: {
           //do nothing;
-          let btn = document.getElementById(evt.key)!;
+          const btn = document.getElementById(evt.key)!;
           btn.classList.add("active");
           setTimeout(() => {
               btn.classList.remove("active");

@@ -1,8 +1,8 @@
 "use strict";
 // Code goes here!
 //get all button and display
-let calc_buttons = document.querySelectorAll(".calc-btn");
-let display = document.getElementById("display");
+const calc_buttons = document.querySelectorAll(".calc-btn");
+const display = document.getElementById("display");
 let dValue = '';
 console.log(calc_buttons, display);
 function setToLocalStorage(item) {
@@ -12,7 +12,7 @@ function getFromLocalStorage() {
     return localStorage.getItem("valDisplay");
 }
 function wrapperGetElementAttribute(element, attribute) {
-    const attributeValue = element.getAttribute(attribute);
+    let attributeValue = element.getAttribute(attribute);
     if (typeof attributeValue === 'string') {
         return attributeValue;
     }
@@ -94,7 +94,7 @@ document.onkeydown = function (event) {
         switch (evt.key) {
             case "Enter":
                 {
-                    let equal_btn = document.getElementById("equal");
+                    const equal_btn = document.getElementById("equal");
                     doWhenButtonClicked(equal_btn);
                 }
                 break;
@@ -106,7 +106,7 @@ document.onkeydown = function (event) {
                 break;
             default: {
                 //do nothing;
-                let btn = document.getElementById(evt.key);
+                const btn = document.getElementById(evt.key);
                 btn.classList.add("active");
                 setTimeout(() => {
                     btn.classList.remove("active");
@@ -116,7 +116,7 @@ document.onkeydown = function (event) {
         }
     }
     else {
-        alert("Invalid Key Press!!");
+        // do nothing
     }
 };
 //# sourceMappingURL=script.js.map
