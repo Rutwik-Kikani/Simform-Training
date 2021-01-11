@@ -1,16 +1,27 @@
 //get all button and display
-let calc_buttons = document.getElementsByClassName("calc-btn");
-let display = document.getElementById("display");
+const calc_buttons = document.getElementsByClassName("calc-btn");
+const display = document.getElementById("display");
+let dValue='';
 // console.log(calc_buttons,display);
 
 //this is a flag which tell us display reach to result or not
 //for starting it is set to false when result come it set to true
-let isDisplayHasResult = false;
+//let isDisplayHasResult = false;
+
+
+function setToLocalStorage(item) {
+  localStorage.setItem("valDisplay", item);
+}
+
+function getFromLocalStorage() {
+  return localStorage.getItem("valDisplay");
+}
 
 //reset display function
 function resetDisplay() {
   display.value = 0;
   setToLocalStorage(display.value);
+  dValue='';
 }
 
 //dummy function;
@@ -23,12 +34,19 @@ function removeFirstZeros(str) {
   return str.replace(/^0+/, "");
 }
 
-function setToLocalStorage(item) {
-  localStorage.setItem("valDisplay", item);
+
+
+function init() {
+  resetDisplay();
+  const valueOfDisplay = getFromLocalStorage();
+  if (valueOfDisplay) {
+    display.value = valueOfDisplay;
+  }
 }
-function getFromLocalStorage() {
-  return localStorage.getItem("valDisplay");
-}
+init();
+
+
+
 
 function doWhenButtonClicked(calc_btn) {
   //when button other then c and = is clicked, display value should change
@@ -38,10 +56,11 @@ function doWhenButtonClicked(calc_btn) {
         // console.log(calc_btn);
         //print result on display and set flag to true
         try{
-        //before going to evaluation remove first 0 why? try 010 without removing zero and press = ;
-            let finalEvalString = removeFirstZeros(display.value);
+        //before going to evaluation remove first 0 why?, try 010 without removing zero and press = ;
+            const finalEvalString = removeFirstZeros(display.value);
             display.value = eval(finalEvalString);
-            isDisplayHasResult = true;
+            dValue = display.value;
+            // isDisplayHasResult = true;
         } catch(error){
             console.log(error);
             display.value = "Error";
@@ -59,20 +78,13 @@ function doWhenButtonClicked(calc_btn) {
       }
       break;
     default: {
-      display.value += calc_btn.textContent;
+      dValue += calc_btn.innerHTML;
+      // console.log(dValue);
+      display.value = dValue;
     }
   }
   setToLocalStorage(display.value);
 }
-
-function init() {
-  resetDisplay();
-  const valueOfDisplay = getFromLocalStorage();
-  if (valueOfDisplay) {
-    display.value = valueOfDisplay;
-  }
-}
-init();
 
 //add click event listener to all button
 for (let i = 0; i < calc_buttons.length; i++) {
@@ -82,18 +94,23 @@ for (let i = 0; i < calc_buttons.length; i++) {
   });
 }
 
+
+
+
+
 //Esc key press display should be reset
 const validKeyArray = ["1","2","3","4","5","6","7","8","9","0",".","Enter","Escape","+","-","/","*"];
 
 document.onkeydown = function (event) {
-  //this line will help you to get when 1,2,3 etc key press how event looks like
+  //this below= line will help you to get when 1,2,3 etc key press how event looks like
   // console.log(event);
 
   evt = event || window.event;
-  console.log("key" + evt.key + "pressed");
+  console.log("key " + evt.key + " pressed");
   if (validKeyArray.indexOf(evt.key)>=0) {
     switch (evt.key) {
       case "Enter":
+      case "=":
         {
           let equal_btn = document.getElementById("equal");
           doWhenButtonClicked(equal_btn);
@@ -106,8 +123,8 @@ document.onkeydown = function (event) {
         }
         break;
       default: {
-        //do nothing;
-        let btn = document.getElementById(evt.key);
+        //do something print that value to display
+        const btn = document.getElementById(evt.key);
         btn.classList.add("active");
         setTimeout(() => {
             btn.classList.remove("active");
