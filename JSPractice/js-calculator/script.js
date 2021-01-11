@@ -74,18 +74,6 @@ function init() {
 }
 init();
 
-// 2. this approch did not work why? doubt
-//this is a function which will call on display load
-// window.addEventListener("load",function(){
-//     console.log("Loaded");
-// });
-
-//3. this approch did not work why? becouse i set input field as readonly conform this with mentor
-//add onchange eventlistner to display so that you can add it to localstorage
-// display.addEventListener("input", function(){
-//     console.log("display value is "+ display.value);
-// });
-
 //add click event listener to all button
 for (let i = 0; i < calc_buttons.length; i++) {
   calc_buttons[i].addEventListener("click", function () {
@@ -128,6 +116,6 @@ document.onkeydown = function (event) {
       }
     }
   }else{
-      alert("Invalid Key Press!!");
+      //do nothing.
   }
 };
