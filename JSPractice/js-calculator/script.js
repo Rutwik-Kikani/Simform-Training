@@ -10,6 +10,7 @@ let isDisplayHasResult = false;
 //reset display function
 function resetDisplay() {
   display.value = 0;
+  setToLocalStorage(display.value);
 }
 
 //dummy function;
@@ -46,7 +47,6 @@ function doWhenButtonClicked(calc_btn) {
             display.value = "Error";
             setTimeout(() => {
                 resetDisplay();            
-                setToLocalStorage(display.value);
             },1000);
         }
       }
