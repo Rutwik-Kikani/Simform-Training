@@ -50,6 +50,8 @@ function init() {
 init();
 
 
+
+
 function doWhenButtonClicked(calc_btn:typeof calc_buttons[0]) {
     //when button other then c and = is clicked, display value should change
     switch (calc_btn.id) {
@@ -93,3 +95,44 @@ for (let i = 0; i < calc_buttons.length; i++) {
       doWhenButtonClicked(calc_buttons[i]);
     });
 }
+
+
+
+
+
+const validKeyArray = ["1","2","3","4","5","6","7","8","9","0",".","Enter","Escape","+","-","/","*"];
+
+document.onkeydown = function (event: KeyboardEvent) {
+    //this line will help you to get when 1,2,3 etc key press how event looks like
+    // console.log(event);
+  
+    let evt:KeyboardEvent = event || window.event;
+    console.log("key" + evt.key + "pressed");
+    if (validKeyArray.indexOf(evt.key)>=0) {
+      switch (evt.key) {
+        case "Enter":
+          {
+            let equal_btn = document.getElementById("equal")!;
+            doWhenButtonClicked(equal_btn);
+          }
+          break;
+        case "Escape":
+        case "Esc":
+          {
+            resetDisplay();
+          }
+          break;
+        default: {
+          //do nothing;
+          let btn = document.getElementById(evt.key)!;
+          btn.classList.add("active");
+          setTimeout(() => {
+              btn.classList.remove("active");
+          },100);
+          doWhenButtonClicked(btn);        
+        }
+      }
+    }else{
+        // do nothing
+    }
+  };
