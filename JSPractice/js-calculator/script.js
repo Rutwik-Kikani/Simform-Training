@@ -116,6 +116,6 @@ document.onkeydown = function (event) {
       }
     }
   }else{
-      //do nothing.
+    //do nothing
   }
 };
