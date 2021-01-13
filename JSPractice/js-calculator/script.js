@@ -132,7 +132,8 @@ document.onkeydown = function (event) {
         doWhenButtonClicked(btn);        
       }
     }
-  }else{
-    //do nothing
   }
+  // else{
+  //   //do nothing
+  // }
 };
