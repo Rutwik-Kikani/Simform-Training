@@ -4,18 +4,19 @@ import Person from "./Person/Person";
 
 
 // App Component as class base Component
-class App extends Component{
+class App extends Component {
   state = {
-    persons:[
-      {name:"Rutwik",age:21},
-      {name: "Zansi", age:16},
-      {name: "Sanket", age:22},
-      {name: "Bansi", age:18}
+    persons: [
+      { name: "Rutwik", age: 21 },
+      { name: "Zansi", age: 16 },
+      { name: "Sanket", age: 22 },
+      { name: "Bansi", age: 18 }
     ],
-    otherKey:"Some Other Value"
+    otherKey: "Some Other Value",
+    showPerson: false
   };
 
-  
+
   switchButtonHandler = (...newNames) => {
     // console.log('was Clicked');
     // Don't Do this // this.state.persons[0].name = "Rakesh";
@@ -29,6 +30,11 @@ class App extends Component{
     });
   };
 
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPerson;
+    this.setState({showPerson: !doesShow});
+  }
+
   nameChangeHandler = (event) => {
     this.setState({
       persons: [
@@ -40,33 +46,50 @@ class App extends Component{
     });
   }
 
-  render(){
+  render() {
     const style = {
-      backgroundColor:'white',
-      font:'inherit',
+      backgroundColor: 'white',
+      font: 'inherit',
       border: '1px solid blue',
-      padding:'8px',
-      coursor:'pointer'
+      padding: '8px',
+      coursor: 'pointer'
     }
-    return(
+
+    let persons =null;
+
+    if(this.state.showPerson){
+      persons = (
+        
+        <div>
+          {this.state.persons.map((person) => {
+            return <Person name={person.name} age={person.age}/>
+          })}
+        </div>
+      );
+    }
+
+    return (
       <div className="App">
         <h1>Hi I'm React App</h1>
         <p>This is working</p>
-        <button 
-        onClick= {this.switchButtonHandler.bind(this, "Naruto","Saske","Sakura","Kakashi")}
-        style = {style}> Switch </button>
-        <Person name={this.state.persons[0].name} age={this.state.persons[0].age} 
-            click={() => this.switchButtonHandler("Naruto!","Saske!","Sakura!","Kakashi!")} 
-            changed={this.nameChangeHandler}>Hobbies: Racing,Art,Dance</Person>
-        <Person name={this.state.persons[1].name} age={this.state.persons[1].age} ></Person>
-        <Person name={this.state.persons[2].name} age={this.state.persons[2].age}></Person>
-        <Person name={this.state.persons[3].name} age={this.state.persons[3].age}></Person>       
+        <button
+          onClick={this.togglePersonsHandler}
+          style={style}> 
+            Toggle 
+        </button>
+        {persons}
       </div>
     );
   }
 }
 
 export default App;
+
+
+/*<Person name={this.state.persons[0].name} age={this.state.persons[0].age}
+              click={() => this.switchButtonHandler("Naruto!", "Saske!", "Sakura!", "Kakashi!")}
+              changed={this.nameChangeHandler}>Hobbies: Racing,Art,Dance</Person> */
+
 
 /*
 //  app component with function base component
@@ -97,7 +120,7 @@ export default App;
 
     });
   };
-  
+
   return (
     <div className="App">
       <h1>Hello I Am React App</h1>
