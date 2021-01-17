@@ -7,23 +7,31 @@ import Person from "./Person/Person";
 class App extends Component {
   state = {
     persons: [
-      { id:'1', name: "Rutwik", age: 21 },
-      { id:'2', name: "Zansi", age: 16 },
-      { id:'3', name: "Sanket", age: 22 },
-      { id:'4', name: "Bansi", age: 18 }
+      { id:'a', name: "Rutwik", age: 21 },
+      { id:'b', name: "Zansi", age: 16 },
+      { id:'c', name: "Sanket", age: 22 },
+      { id:'d', name: "Bansi", age: 18 }
     ],
     otherKey: "Some Other Value",
     showPerson: false
   };
 
-  nameChangeHandler = (event) => {
+  nameChangeHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex( p => {
+      return p.id === id;
+    })
+    console.log(personIndex);
+    // change the name of found person in state
+    const person = {... this.state.persons[personIndex]};
+    //const person = Object.assign({},this.state.persons[personIndex])
+    person.name = event.target.value;
+
+    //change in array
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
     this.setState({
-      persons: [
-        {name: event.target.value, age: 20 },
-        {name: event.target.value, age: 15 },
-        {name: event.target.value, age: 20 },
-        {name: event.target.value, age: 15 },
-      ],
+      persons: persons
     });
   }
 
@@ -64,7 +72,8 @@ class App extends Component {
               name={person.name} 
               age={person.age}
               click={() => this.deletePersonHandler(index)}
-              key={person.id}/>
+              key={person.id}
+              changed={(event) => this.nameChangeHandler(event, person.id)}/>
           })}
         </div>
       );
