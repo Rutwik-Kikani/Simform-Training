@@ -19,7 +19,7 @@ class App extends Component {
   }
   render() {
     let charList = this.state.userInput.split('').map((ch, index) => {
-        return <Char character = {ch} key = {index} clicked = {() => this.deleteCharHandler(index)}></Char>
+        return <Char character={ch} key={index} clicked={() => this.deleteCharHandler(index)}></Char>
     })
     return (
       <>
