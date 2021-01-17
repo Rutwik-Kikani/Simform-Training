@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Person from "./Person/Person";
+import Radium, {StyleRoot} from 'radium';
 
 
 // App Component as class base Component
@@ -54,18 +55,22 @@ class App extends Component {
 
   render() {
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      coursor: 'pointer'
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black',
+      }
     }
 
     let persons =null;
 
     if(this.state.showPerson){
       persons = (
-        
         <div>
           {this.state.persons.map((person, index) => {
             return <Person 
@@ -77,12 +82,28 @@ class App extends Component {
           })}
         </div>
       );
+      style.backgroundColor = 'red';
+      style[":hover"] ={
+        backgroundColor: 'salmon',
+        color: 'black',
+      }
     }
 
+    const classes = []; //"red bold"
+
+    if(this.state.persons.length <= 2)  {
+      classes.push('red'); //classes = [red]
+    }
+    if(this.state.persons.length <= 1) {
+      classes.push('bold'); //classes = [red bold]
+    }
+
+
     return (
+      <StyleRoot>
       <div className="App">
         <h1>Hi I'm React App</h1>
-        <p>This is working</p>
+        <p className={classes.join(' ')}>This is working</p>
         <button
           onClick={this.togglePersonsHandler}
           style={style}> 
@@ -90,16 +111,12 @@ class App extends Component {
         </button>
         {persons}
       </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
-
-
-/*<Person name={this.state.persons[0].name} age={this.state.persons[0].age}
-              click={() => this.switchButtonHandler("Naruto!", "Saske!", "Sakura!", "Kakashi!")}
-              changed={this.nameChangeHandler}>Hobbies: Racing,Art,Dance</Person> */
+export default Radium(App);
 
 
 /*
