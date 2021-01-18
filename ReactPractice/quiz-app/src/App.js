@@ -5,6 +5,7 @@ import { getQuestions } from './QuestionProvider/QuestionProvider';
 export default function App() {
 
 	const questions = getQuestions();
+	// console.log(questions);
 
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 
@@ -18,10 +19,13 @@ export default function App() {
 			setScore(score + 1);
 		}
 		const nextQuestion = currentQuestion+1;
-		if(nextQuestion < questions.length)
+		if(nextQuestion < questions.length){
 			setCurrentQuestion(nextQuestion);
-		else
+		}
+		else{
 			setShowScore(true);
+		}
+			
 
 	}
 
@@ -29,8 +33,6 @@ export default function App() {
 
 	return (
 		<div className='app'>
-			{/* HINT: replace "false" with logic to display the 
-      score when the user has answered all the questions */}
 			{showScore? (
 				<div className='score-section'>
 					You scored {score} out of {questions.length}
@@ -45,9 +47,9 @@ export default function App() {
 					</div>
 					<div className='answer-section'>
 						{
-							questions[currentQuestion].answerOptions.map((answerOption) => (
+							questions[currentQuestion].answerOptions.map((answerOption,index) => (
 								// <button onClick = {answerButtonClickHandler.bind(this,answerOption.isCorrect)}>
-								<button onClick = {() => answerButtonClickHandler.bind(answerOption.isCorrect)}>
+								<button onClick = {() => answerButtonClickHandler(answerOption.isCorrect)} key={index}>
 									{answerOption.answerText}
 								</button>
 							))
