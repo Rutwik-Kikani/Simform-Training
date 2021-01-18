@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Person from "./Person/Person";
-import Radium, {StyleRoot} from 'radium';
+
 
 
 // App Component as class base Component
@@ -23,7 +23,7 @@ class App extends Component {
     })
     console.log(personIndex);
     // change the name of found person in state
-    const person = {... this.state.persons[personIndex]};
+    const person = {...this.state.persons[personIndex]};
     //const person = Object.assign({},this.state.persons[personIndex])
     person.name = event.target.value;
 
@@ -100,7 +100,7 @@ class App extends Component {
 
 
     return (
-      <StyleRoot>
+      
       <div className="App">
         <h1>Hi I'm React App</h1>
         <p className={classes.join(' ')}>This is working</p>
@@ -111,12 +111,12 @@ class App extends Component {
         </button>
         {persons}
       </div>
-      </StyleRoot>
+      
     );
   }
 }
 
-export default Radium(App);
+export default App;
 
 
 /*
