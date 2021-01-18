@@ -35,6 +35,15 @@
 				{ answerText: '7', isCorrect: true },
 			],
 		},
+		{
+			questionText: 'Which of the one is not in Fairy Tail?',
+			answerOptions: [
+				{ answerText: 'Natsu', isCorrect: false },
+				{ answerText: 'Happy', isCorrect: false },
+				{ answerText: 'Lucy', isCorrect: false },
+				{ answerText: 'Yu wang', isCorrect: true },
+			],
+		}
 	];
 
 	export const getQuestions = () => {
