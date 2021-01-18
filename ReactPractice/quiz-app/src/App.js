@@ -14,7 +14,7 @@ export default function App() {
 	const [score, setScore] = useState(0);
 	 
 	const answerButtonClickHandler = (answerOptionIsCorrect) =>{
-		console.log(answerOptionIsCorrect)
+		// console.log(answerOptionIsCorrect)
 		if(answerOptionIsCorrect){
 			setScore(score + 1);
 		}
