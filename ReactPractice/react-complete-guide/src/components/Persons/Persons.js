@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import Person from "./Person/Person";
 
-class Persons extends Component {
+class Persons extends PureComponent {
 
   //don't have state so commented.
   // static getDerivedStateFromProps(props, state){
@@ -9,14 +9,16 @@ class Persons extends Component {
   //   return state;
   // }
 
-  shouldComponentUpdate(nextProps,nextState){
-    console.log('[Persons.js] shouldComponentUpdate');
-    // if(nextProps.person !== this.props.person)
-    //   return true;
-    // else
-    //   return false;
-    return true;
-  }
+  // shouldComponentUpdate(nextProps,nextState){
+  //   console.log('[Persons.js] shouldComponentUpdate');
+  //   if(nextProps.persons !== this.props.persons || nextProps.changed !== this.props.changed || nextProps.clicked !== this.props.clicked){
+  //     return true;
+  //   }
+  //   else{
+  //     return false;
+  //   } 
+  //   // return true;
+  // }
 
   //removed from react
   // componentWillReceiveProps(props){
@@ -58,6 +60,9 @@ class Persons extends Component {
 }
 
 export default Persons;
+
+
+
 /*
 const persons = (props) =>{ 
   console.log('[Persons.js] rendering...')
