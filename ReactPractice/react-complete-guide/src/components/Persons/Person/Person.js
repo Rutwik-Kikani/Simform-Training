@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import classes from './Person.css';
 
+class Person extends Component{
 
+    render(){
+    console.log('[Person.js] rendering...');
+    return (
+        <div className={classes.Person}>
+            <p onClick={this.props.click}> I am {this.props.name},Age:{this.props.age}</p>
+            <p>{this.props.children}</p>
+            <input type="text" onChange={this.props.changed} value={this.props.name}></input>
+        </div>
+            
+    );
+    }
+}
 
+export default Person;
+/*
 //style.<HTMLComponentName> returns a component with style pass in ``
 // const StyleDiv = styled.div` 
 // width: 60%;
@@ -17,22 +32,23 @@ import classes from './Person.css';
 // }
 // `;
 
-const person = (props) => {
+const person = (this.props) => {
     // const rnd = Math.random();
     
     // if( rnd > 0.7){
     //     throw new Error('Somthing went wrong');
     // }
 
+    console.log('[Person.js] rendering...');
     return (
         <div className={classes.Person}>
-            <p onClick={props.click}> I am {props.name},Age:{props.age}</p>
-            <p>{props.children}</p>
-            <input type="text" onChange={props.changed} value={props.name}></input>
+            <p onClick={this.props.click}> I am {this.props.name},Age:{this.props.age}</p>
+            <p>{this.props.children}</p>
+            <input type="text" onChange={this.props.changed} value={this.props.name}></input>
         </div>
             
-        
-        );
+    );
     
 };
 export default person;
+*/

@@ -4,6 +4,12 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 // App Component as class base Component
 class App extends Component {
+
+  constructor(props){
+    super(props);
+    console.log('[App.js] constructor');
+  }
+
   state = {
     persons: [
       { id:'a', name: "Rutwik", age: 21 },
@@ -12,12 +18,30 @@ class App extends Component {
       { id:'d', name: "Bansi", age: 18 }
     ],
     otherKey: "Some Other Value",
-    showPerson: false
+    showPerson: false,
+    showCockpit: true,
   };
 
+  static getDerivedStateFromProps(props, state){
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+  
+  componentDidMount(){
+    console.log('[App.js] componentDidMount');
+  }
+
+  shouldComponentUpdate(nextProps,nextState){
+    console.log('[App.js] shouldComponentUpdate');
+    return true;
+  }
+
+  componentDidUpdate(){
+    console.log('[App.js] componentDidUpdate');
+  }
+
   nameChangeHandler = (event, id) => {
-    const personIndex = this.state.persons.findIndex( p => p.userid === p.id )
-    console.log(personIndex);
+    const personIndex = this.state.persons.findIndex( p => p.id === id )
     // change the name of found person in state
     const person = {...this.state.persons[personIndex]};
     //const person = Object.assign({},this.state.persons[personIndex])
@@ -50,7 +74,7 @@ class App extends Component {
   
 
   render() {
-
+    console.log('[App.js] rendering...')
     let persons =null;
 
     
@@ -71,10 +95,12 @@ class App extends Component {
     return (
       
       <div className={classes.App}>
-        <Cockpit
+        <button onClick={() => {this.setState({showCockpit:false})}}/>
+        {this.state.showCockpit?<Cockpit
+        title={this.props.appTitle}
         persons={this.state.persons}
         showPerson={this.state.showPerson}
-        clicked={this.togglePersonsHandler}/>
+        clicked={this.togglePersonsHandler}/>:null}
         {persons}
       </div>
       
