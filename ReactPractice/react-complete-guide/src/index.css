@@ -1,5 +1,1 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
+webpack-dev-server --config config/webpack.dev.js --progress --profile --watch --content-base src/
