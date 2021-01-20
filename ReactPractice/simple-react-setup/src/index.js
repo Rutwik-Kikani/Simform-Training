@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import './index.css';
 //Import App
 import App from "./containers/App";
 
