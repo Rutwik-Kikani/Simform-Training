@@ -1,11 +1,11 @@
 import React, { useState }from 'react';
-import './Footer.css';
+import './BtnFooter.css';
 
 
-const footer =() => {
+const btnfooter = (props) => {
     const [btnStyleClasses, inputStyleClasses] = [[],[]];
 
-    const [state, setstate] = useState({whatToShow:'btn'});
+    const [state, setstate] = useState({whatToShow:'btn', });
 
     const btnClickHandler = () => {
         //on fire this handler should set states to input
@@ -48,9 +48,9 @@ const footer =() => {
     
     return(
     <footer>
-        <button id="Button" className={btnStyleClasses.join(' ')}  onClick={() => {btnClickHandler()}}>+</button>
-        <input  id="Input"  className={inputStyleClasses.join(' ')} onKeyDown={(event) => {inputKeyHandler(event)}} type="text" autoFocus/>
+        <button id="Button" className={btnStyleClasses.join(' ')}  onClick={() => {props.clicked()}}>+</button>
+        {/* <input  id="Input"  className={inputStyleClasses.join(' ')} onKeyDown={(event) => {inputKeyHandler(event)}} type="text" autoFocus/> */}
     </footer>
     );
 }
-export default footer
+export default btnfooter

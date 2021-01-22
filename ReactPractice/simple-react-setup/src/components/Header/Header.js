@@ -1,13 +1,20 @@
 import React from 'react';
 import './Header.css'
 const header = () => {
+
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
+  ];
+
+  const d = new Date();
+
      return(
         <header>
         <div className="DateDayBox">
           <div className="DateBox">
-              <p className="Date">12</p>
-              <p className="Month">JAN</p>
-              <p className="Year">2016</p>
+              <p className="Date">{d.getDate()}</p>
+              <p className="Month">{monthNames[d.getMonth()]}</p>
+              <p className="Year">{d.getFullYear()}</p>
           </div>
           <div className="DayBox">
               <p className="Day">Thursday</p>
