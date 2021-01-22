@@ -1,0 +1,73 @@
+/****************************   
+        FOOTER
+*****************************/
+footer{
+    position: absolute;
+    top: calc(100vh - 10vh);
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+/****************************   
+        BUTTON
+*****************************/
+#Button {
+    display: inline-block;
+    padding: 20px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 50%;
+    /* box-shadow: 0 9px #999; */
+  }
+  
+  #Button:hover {
+      background-color: #3e8e41;
+      transform: scale(1.150);
+      transition:  transform 0.5s;
+    }
+  
+  #Button:active {
+    background-color: #3e8e41;
+    /* box-shadow: 0 5px #666; */
+    transform: translateY(4px);
+  }
+
+  #Button.hide{
+      visibility: hidden;
+  }
+/****************************   
+        InputBox
+*****************************/
+#Input{
+    display: none;
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    z-index: -1;
+    border: none;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: groove;
+    
+    width: 300px;
+    height: 50px;
+    font-size: 20px;
+    padding: 10px;
+}
+#Input:focus{
+    outline: none;
+}
+#Input.show{
+    transition: display 0.5s, z-index 0.5s;
+    display: inline-block;
+    z-index: 0;
+
+}

@@ -1,0 +1,45 @@
+/****************************   
+        HEADER 
+*****************************/
+header{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 10px;
+}
+/****************************   
+       HEADER > DATEDAYBOX  
+*****************************/
+.DateDayBox{   
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 50px; 
+    align-items: center;
+}
+
+.DateBox{
+    display: grid;
+    height: 48px;
+    grid-template-columns: 40% 60%;
+}
+.Date{
+    grid-row: span 2;
+    text-align: end;
+    font-size: 40px;
+    font-weight: 700;
+}
+.Month,
+.Year{
+    text-align: start;
+    padding-left: 10%;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.Month{
+    font-weight: 600;
+}
+
+.Day{
+    text-align: center;
+    font-weight: 700;
+}

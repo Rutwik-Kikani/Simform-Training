@@ -4,4 +4,4 @@ import './index.css';
 //Import App
 import App from "./containers/App";
 
-ReactDOM.render(<App />, document.querySelector("#root"));
+ReactDOM.render(<App/>, document.querySelector("#root"));

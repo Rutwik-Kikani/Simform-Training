@@ -1,21 +1,40 @@
 import React, { Component } from "react";
-import styles from "./App.module.css";
 import './App.css';
 
+/*import Component */
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
+import ListItem from '../components/ToDoList/ListItem/ListItem';
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isChecked: true,
+    };
+    this.toggleChange = this.toggleChange.bind(this);
+  }
+  toggleChange (){
+    this.setState({
+      isChecked: !this.state.isChecked,
+    });
+  }
   render() {
     return (
       <div className="App">
-      <header>
-        <h2>header</h2>
-      </header>
-      
-        <h1 className={styles.natsu}>To Do App</h1>
-      <footer>
-        <h2>footer</h2>
-      </footer>
+
+        <Header />
+        <div className="Listbox">
+          <ul>
+           <ListItem 
+              checked={this.state.isChecked} changed={this.toggleChange}></ListItem>
+          </ul>
+        </div>
+
+
+        <Footer></Footer>
+
       </div>
-      
+
     );
   }
 }
