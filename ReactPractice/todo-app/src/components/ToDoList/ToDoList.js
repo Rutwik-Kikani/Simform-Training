@@ -17,7 +17,7 @@ const toDoList = (props) => {
         <ListItem key={index} 
             todoText={item.text} 
             status={item.status}
-            changed={() => {checkBoxChangeHandler(item.status,index)}}
+            changed={() => {checkBoxChangeHandler(item.status,index)}} 
         />
     );
 
@@ -32,3 +32,5 @@ const toDoList = (props) => {
 }
 
 export default toDoList; 
+
+// changed={() => {props.anyChange(item.status,index)}}

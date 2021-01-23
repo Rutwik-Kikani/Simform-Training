@@ -20,9 +20,9 @@ class App extends Component {
       listTodo: list,
       showBtn: true,
     }
-    this.buttonClickHandler = this.buttonClickHandler.bind(this);
-    this.inputKeyHandler = this.inputKeyHandler.bind(this,event);
-    
+    // this.buttonClickHandler = this.buttonClickHandler.bind(this);
+    // this.inputKeyHandler = this.inputKeyHandler.bind(this);
+    // this.listChangeHandler = this.listChangeHandler.bind(this);    
   }
   componentDidMount(){
     // console.log('[App.js] componetDidMount');
@@ -65,6 +65,9 @@ class App extends Component {
         }
   }
 
+  listChangeHandler(itemStatus,itemIndex){
+    console.log('[App.js] listChangeHandler');
+  } 
   render() {
     
     return (
@@ -77,7 +80,7 @@ class App extends Component {
 
         {this.state.showBtn ? 
         <BtnFooter clicked={() => {this.buttonClickHandler()}}></BtnFooter> :
-        <input id="Input"type='text' width="100%" onKeyDown={() => {this.inputKeyHandler()}} autoFocus/>
+        <input id="Input"type='text' width="100%" onKeyDown={(event) => {this.inputKeyHandler(event)}} autoFocus/>
         }
 
       </div>
@@ -88,6 +91,7 @@ class App extends Component {
 
 export default App;
 
+// anyChange={(itemStatus,itemIndex) => {this.listChangeHandler(itemStatus,itemIndex)}}
 
 /*
 this.state = {
