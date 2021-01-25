@@ -37,4 +37,7 @@ const toDoList = (props) => {
 
 export default toDoList; 
 
-// changed={() => {props.anyChange(item.status,index)}}
+/*{ While development used but keep it for syntax purpose
+changed={() => {props.anyChange(item.status,index)}}
+}*/
+ 

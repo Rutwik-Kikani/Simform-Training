@@ -22,7 +22,7 @@ const btnfooter = (props) => {
         // console.log('[footer.js]',"key " + evt.key + " pressed");    
         switch (evt.key) {
             case "Enter":{
-                //todo add task in list
+                //add task in list
                 //on enter input should disappear]
                 setstate({
                     whatToShow:'btn',

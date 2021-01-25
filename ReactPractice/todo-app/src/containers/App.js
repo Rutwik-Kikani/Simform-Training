@@ -6,20 +6,73 @@ import Header from '../components/Header/Header';
 import BtnFooter from '../components/Footer/BtnFooter';
 // import ListItem from '../components/ToDoList/ListItem/ListItem';
 import ToDoList from '../components/ToDoList/ToDoList';
-import getData from '../data/todoListData';
+// import getData from '../data/todoListData';
+// import toDoList from "../components/ToDoList/ToDoList";
 
 //get the data of list
 //while develoopment goto todoListData.js  and return todoListData1
-const list = getData();
+//const list = getData();
+//localStorage.setItem('todo-list',JSON.stringify(list)); 
 
-localStorage.setItem('todo-list',JSON.stringify(list)); 
+const list1 = [];
+
+
 
 function setCookie(cookieName, cookieValue, exdays){
-  const currentdate = new Date();
-  currentdate.setTime(today.getTime() + (exdays*5000));
-  
-  
+  console.log('[App.js] setCookie fire!!');
+
+  const cdate = new Date(); // cdate meaning cookie set date
+  cdate.setTime(cdate.getTime() + ((exdays)*24*60*60*1000)); 
+  const expires = "expires="+ cdate.toUTCString();
+  localStorage.setItem('extTime',cdate.getTime());
+  console.log('[App,js>setCookie] expires',cdate.toUTCString());
+
+  document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
+
 } 
+
+function getCookieValue(cookieName){
+  const name = cookieName+'=';
+  const decodedCookies = decodeURIComponent(document.cookie);
+  // console.log(decodedCookies);
+  const cookiesArr = decodedCookies.split(';');
+  // console.log(cookieArr);
+  for(let i =0 ; i<cookiesArr.length ; i++){
+    let currentC = cookiesArr[i];
+    // console.log(currentC);
+
+    //check for starting space in the current cookie item
+    if(currentC.charAt(0) == ' '){
+      currentC = currentC.substr(1);
+    }
+    //find the cookieName in current cookie.
+    //if it's occure at start then return the value or substring after '='
+    if(currentC.indexOf(cookieName) == '0'){
+      // console.log(currentC.substring(name.length,currentC.length));
+      return currentC.substring(name.length,currentC.length);
+    }  
+  }
+  //otherwise return empty string
+  return "";
+}
+
+function removeCookie(cookieName){
+  console.log('[App.js] removeCookie fire!!');
+  const cdate = new Date();
+  cdate.setTime(+localStorage.getItem("extTime"));
+  console.log('[App.js>removeCookie] expires',cdate.toUTCString());
+  document.cookie = cookieName + "=;"+"expires="+cdate.toUTCString()+ ";path=/";
+}
+
+function updateCookie(cookieName, cookieValue){
+  console.log('[App.js] updateCookie fire!!');
+  const cdate = new Date();
+  cdate.setTime(+localStorage.getItem("extTime"));
+  console.log('[App.js > updateCookie] expires on',cdate.toUTCString());
+  document.cookie = cookieName + "="+cookieValue+";"+"expires="+cdate.toUTCString()+";path=/"
+}
+
+
 
 
 class App extends Component {
@@ -27,26 +80,56 @@ class App extends Component {
     super(props);
     //set data in state
     this.state={
-      listTodo: list,
+      listTodo: [],
       showBtn: true,
     }
     // this.buttonClickHandler = this.buttonClickHandler.bind(this);
     // this.inputKeyHandler = this.inputKeyHandler.bind(this);
     // this.listChangeHandler = this.listChangeHandler.bind(this);    
   }
+
   componentDidMount(){
-    console.log('[App.js] componetDidMount'); 
-    const localList = JSON.parse(localStorage.getItem("todo-list") || "[]")
-    // console.log(localList);
+    console.log('[App.js] componetDidMount');    
+
+    //at first check for cookie list is available or not
+    //if not then set cookie with emptylist
+    const cookieList = getCookieValue('todo-list');
+    if(cookieList === ''){
+      setCookie('todo-list',JSON.stringify(list1),1);
+    }
+
+    //then check for that seted cookie is expire or not while setting cookie 
+    //it's expirey date is set to localstorage while creating cookie
+    //is cookie is not there or expire then remove the cookie and 
+    //set new cookie with empty list 
+    if(localStorage.getItem('extTime') != null && 
+       localStorage.getItem('extTime') < new Date().getTime()){
+         removeCookie('todo-list');
+         setCookie('todo-list',JSON.stringify(list1),1);
+    }
+
+
+    console.log('[App.js] current time', new Date().toUTCString());
+    const exdate = new Date()
+    exdate.setTime(+localStorage.getItem('extTime'));
+    console.log('[App.js] expire time', exdate.toUTCString())
+
     this.setState({
-      listTodo: localList,
+      listTodo: JSON.parse(getCookieValue('todo-list')),  
     })
+
+    // const localList = JSON.parse(localStorage.getItem("todo-list") || "[]")
+    // console.log(localList);
+    // this.setState({
+    //   listTodo: localList,
+    // })
     
   }
 
   
   componentDidUpdate(){
     console.log('[App.js] component is updated !!');
+
   }
 
   buttonClickHandler(){
@@ -75,8 +158,9 @@ class App extends Component {
                     showBtn:!this.state.showBtn,
                     listTodo: copyList,
                 })
-                //and also store it in local storage
-                localStorage.setItem('todo-list',JSON.stringify(copyList));
+                //and also store it in local storage or cookie
+                updateCookie('todo-list',JSON.stringify(copyList));
+                // localStorage.setItem('todo-list',JSON.stringify(copyList));
                 evt.target.value='';
             }break;
             case "Esc":
@@ -105,8 +189,9 @@ class App extends Component {
       listTodo: copyList,
     })
     
-    //set it to localstorage
-    localStorage.setItem('todo-list',JSON.stringify(copyList));
+    //set it to localstorage or cookie
+    updateCookie('todo-list',JSON.stringify(copyList));
+    // localStorage.setItem('todo-list',JSON.stringify(copyList));
   } 
 
   render() {
@@ -138,9 +223,10 @@ class App extends Component {
 
 export default App;
 
-// anyChange={(itemStatus,itemIndex) => {this.listChangeHandler(itemStatus,itemIndex)}}
+/* // While development used but keep it for syntax purpose.
+{ anyChange={(itemStatus,itemIndex) => {this.listChangeHandler(itemStatus,itemIndex)}}
 
-/*
+
 this.state = {
   isChecked: true,
 };
@@ -150,4 +236,5 @@ toggleChange (){
   this.setState({
     isChecked: !this.state.isChecked,
   });
-}*/
+}
+} */
