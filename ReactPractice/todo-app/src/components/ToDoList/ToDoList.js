@@ -4,24 +4,28 @@ import ListItem from'./ListItem/ListItem';
 
 const toDoList = (props) => {
     
-    // console.log(props.passlist);
+    // console.log('[ToDoList.js] what to come as prop',props);
 
-    const checkBoxChangeHandler = (status, index) => {
-        console.log('[ToDolist.js] checkbox chnage handler fire');
-        //change status of passlist
-        props.passlist[index].status = !status;
-        console.log(props.passlist);
+    const checkBoxChangeHandler = (item, index) => {
+        // console.log('[ToDolist.js] checkbox chnage handler fire');
+    //     //change status of passlist
+        console.log(props.passlist); //this list automaticaly updated why no clue!!
     }
 
-    const listItems = props.passlist.map((item,index) =>
-        <ListItem key={index} 
+    const listItems = props.passlist.map((item,index) =>{
+        // console.log(index);
+        return (<ListItem key={index} 
             todoText={item.text} 
             status={item.status}
-            changed={() => {checkBoxChangeHandler(item.status,index)}} 
-        />
-    );
-
-    // console.log(listItems);
+            // checkBoxClicked={() => {
+            //     console.log('[ToDoList.js] checkBoxClicked!!');
+            //     checkBoxChangeHandler(item,index);
+            // }} 
+            checkBoxClicked = {() => {
+                console.log('[ToDoList.js] checkBoxClicked!!');
+                props.checkboxChangeHappen(item,index)}}
+        />)
+    });
         
     return(
         <ul>

@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import './ListItem.css';
 
 const listItem = (props) => {
+
+    // console.log('[ListItem.js] what is come as props',props);
+
     const [isChecked, setChecked] = useState(props.status);
 
     const [todoTxtStyleClasses, todoCheckBoxStyleClasses] = [["todo-text"],["todo-checkbox"]];
@@ -20,8 +23,11 @@ const listItem = (props) => {
                  <input  className={todoCheckBoxStyleClasses.join(' ')}
                          type="checkbox"
                          checked={isChecked}
-                         onChange={() => { setChecked(!isChecked);
-                                           props.changed();}}
+                         onChange={() => { 
+                           console.log('[ListItem.js] onChange!');
+                           setChecked(!isChecked);
+                           props.checkBoxClicked();
+                          }}
                   />
                </label>
             </li>

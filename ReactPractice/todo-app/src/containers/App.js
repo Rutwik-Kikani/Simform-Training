@@ -8,8 +8,18 @@ import BtnFooter from '../components/Footer/BtnFooter';
 import ToDoList from '../components/ToDoList/ToDoList';
 import getData from '../data/todoListData';
 
-//get the data of list 
+//get the data of list
+//while develoopment goto todoListData.js  and return todoListData1
 const list = getData();
+
+localStorage.setItem('todo-list',JSON.stringify(list)); 
+
+function setCookie(cookieName, cookieValue, exdays){
+  const currentdate = new Date();
+  currentdate.setTime(today.getTime() + (exdays*5000));
+  
+  
+} 
 
 
 class App extends Component {
@@ -25,9 +35,18 @@ class App extends Component {
     // this.listChangeHandler = this.listChangeHandler.bind(this);    
   }
   componentDidMount(){
-    // console.log('[App.js] componetDidMount');
-    console.log(this.state.listTodo);
+    console.log('[App.js] componetDidMount'); 
+    const localList = JSON.parse(localStorage.getItem("todo-list") || "[]")
+    // console.log(localList);
+    this.setState({
+      listTodo: localList,
+    })
     
+  }
+
+  
+  componentDidUpdate(){
+    console.log('[App.js] component is updated !!');
   }
 
   buttonClickHandler(){
@@ -56,6 +75,8 @@ class App extends Component {
                     showBtn:!this.state.showBtn,
                     listTodo: copyList,
                 })
+                //and also store it in local storage
+                localStorage.setItem('todo-list',JSON.stringify(copyList));
                 evt.target.value='';
             }break;
             case "Esc":
@@ -65,9 +86,29 @@ class App extends Component {
         }
   }
 
-  listChangeHandler(itemStatus,itemIndex){
-    console.log('[App.js] listChangeHandler');
+  //meaning list_checkbox_ChangeHanler
+  list_c_ChangeHandler(item,itemIndex){
+    
+    /*console.log('[App.js] list_c_ChangeHandler');
+    console.log('where the change happens!! at',itemIndex,',item was,',item);
+    */
+
+    //on value of checkbox change this handler fire and now update the state.
+    //copy previous state list
+    console.log('before the change',this.state.listTodo);
+    const copyList = [...this.state.listTodo];
+    copyList[itemIndex].status = !item.status;
+    console.log('after the change',copyList);
+    
+    //set the state
+    this.setState({
+      listTodo: copyList,
+    })
+    
+    //set it to localstorage
+    localStorage.setItem('todo-list',JSON.stringify(copyList));
   } 
+
   render() {
     
     return (
@@ -75,7 +116,13 @@ class App extends Component {
         <Header></Header>
 
         <div className="Listbox">
-          <ToDoList passlist={this.state.listTodo}></ToDoList>
+          <ToDoList passlist={this.state.listTodo} 
+                    checkboxChangeHappen = {(citem,cindex) => {
+                        console.log('[App.js] checkbox changeHappen!!',cindex,citem);
+                        this.list_c_ChangeHandler(citem,cindex)
+                    }}
+          >
+          </ToDoList>
         </div>
 
         {this.state.showBtn ? 

@@ -12,7 +12,7 @@ const todoListData2 = [
 ]
 
 function getData() {
-    return todoListData1;
+    return todoListData2;
 }
 
 export default getData;
