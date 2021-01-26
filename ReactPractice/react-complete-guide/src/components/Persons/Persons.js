@@ -1,58 +1,59 @@
-import React, { PureComponent } from "react";
-import Person from "./Person/Person";
+import React, { PureComponent } from 'react';
+
+import Person from './Person/Person';
 
 class Persons extends PureComponent {
-
-  //don't have state so commented.
-  // static getDerivedStateFromProps(props, state){
-  //   console.log('[Persons.js] getDerivedStateFromState');
+  // static getDerivedStateFromProps(props, state) {
+  //   console.log('[Persons.js] getDerivedStateFromProps');
   //   return state;
   // }
 
-  // shouldComponentUpdate(nextProps,nextState){
+  // componentWillReceiveProps(props) {
+  //   console.log('[Persons.js] componentWillReceiveProps', props);
+  // }
+
+  // shouldComponentUpdate(nextProps, nextState) {
   //   console.log('[Persons.js] shouldComponentUpdate');
-  //   if(nextProps.persons !== this.props.persons || nextProps.changed !== this.props.changed || nextProps.clicked !== this.props.clicked){
+  //   if (
+  //     nextProps.persons !== this.props.persons ||
+  //     nextProps.changed !== this.props.changed ||
+  //     nextProps.clicked !== this.props.clicked
+  //   ) {
   //     return true;
-  //   }
-  //   else{
+  //   } else {
   //     return false;
-  //   } 
+  //   }
   //   // return true;
   // }
 
-  //removed from react
-  // componentWillReceiveProps(props){
-  //   console.log('[Persons.js] componentWillReceiveProps');
-  // }
-
-  //removed from react
-  // componentWillUpdate(){
-  // }
-
-  getSnapshotBeforeUpdate(prevProps, prevState){
+  getSnapshotBeforeUpdate(prevProps, prevState) {
     console.log('[Persons.js] getSnapshotBeforeUpdate');
-    return { message: 'Snapshort!'};
+    return { message: 'Snapshot!' };
   }
 
-  //most often use.
-  componentDidUpdate(prevProps, prevState, snapshort ){
+  // componentWillUpdate() {
+
+  // }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('[Persons.js] componentDidUpdate');
-    console.log(snapshort);
+    console.log(snapshot);
   }
 
-  componentWillUnmount(){
-    console.log('[Persons.js] componentWillUnmount')
+  componentWillUnmount() {
+    console.log('[Persons.js] componentWillUnmount');
   }
+
   render() {
-    console.log("[Persons.js] rendering...");
+    console.log('[Persons.js] rendering...');
     return this.props.persons.map((person, index) => {
       return (
         <Person
+          click={() => this.props.clicked(index)}
           name={person.name}
           age={person.age}
           key={person.id}
-          click={() => this.props.clicked(index)}
-          changed={(event) => this.props.changed(event, person.id)}
+          changed={event => this.props.changed(event, person.id)}
         />
       );
     });
@@ -60,23 +61,3 @@ class Persons extends PureComponent {
 }
 
 export default Persons;
-
-
-
-/*
-const persons = (props) =>{ 
-  console.log('[Persons.js] rendering...')
-  return props.persons.map((person, index) => {      
-        return (
-          <Person 
-          name={person.name} 
-          age={person.age}
-          key={person.id}
-          click={() => props.clicked(index)}
-          changed={(event) => props.changed(event, person.id)}/>
-        );
-    });
-  }
-
-export default persons;
-*/

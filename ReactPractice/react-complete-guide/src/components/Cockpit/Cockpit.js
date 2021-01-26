@@ -1,56 +1,50 @@
-import React,{ useEffect } from 'react';
+import React, { useEffect } from 'react';
+
 import classes from './Cockpit.css';
 
-const cockpit = (props) => {
-    
-    //rus for every render cycle.
-    //replacement for componentDidMount(use empty arryay) + componentDidUpdate(use array with props.persons) use for HTTP request.
-    useEffect(() => {
-        console.log('[Cockpit.js] useEffect');
-        //Http request...
-        // setTimeout(() => {
-        //     alert('Save data to cloud');
-        // },1000);
-        //for unmount
-        return () => {
-            console.log('[Cockpit.js] cleanup work with useEffect');
-        }
-    }, []);
+const Cockpit = props => {
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect');
+    // Http request...
+    setTimeout(() => {
+      alert('Saved data to cloud!');
+    }, 1000);
+    return () => {
+      console.log('[Cockpit.js] cleanup work in useEffect');
+    };
+  }, []);
 
-    //runs on every update cycle.
-    useEffect(() => {
-        console.log('[Cockpit.js] 2nd useEffect');
-        return () => {
-            console.log('[Cockpit.js] cleanup work 2nd with useEffect');
-        }
-    })
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect');
+    return () => {
+      console.log('[Cockpit.js] cleanup work in 2nd useEffect');
+    };
+  });
 
-    const assignedclasses = []; //"red bold"
-    let btnClass = '';
+  // useEffect();
 
-    if(props.showPersons){
-        btnClass = classes.Red;
-    }
-    if(props.personsLength <= 2)  {
-      assignedclasses.push(classes.red); //classes = [red]
-    }
-    if(props.personsLength <= 1) {
-      assignedclasses.push(classes.bold); //classes = [red bold]
-    }
+  const assignedClasses = [];
+  let btnClass = '';
+  if (props.showPersons) {
+    btnClass = classes.Red;
+  }
 
+  if (props.personsLength <= 2) {
+    assignedClasses.push(classes.red); // classes = ['red']
+  }
+  if (props.personsLength <= 1) {
+    assignedClasses.push(classes.bold); // classes = ['red', 'bold']
+  }
 
-    return(
-        <div className={classes.Cockpit}>
-            <h1>{props.title}</h1>
-            <p className={assignedclasses.join(' ')}>This is working</p>
-            <button className={btnClass}
-                onClick={props.clicked}>
-                Toggle 
-            </button>
-        </div>
-        
-    );
-}
+  return (
+    <div className={classes.Cockpit}>
+      <h1>{props.title}</h1>
+      <p className={assignedClasses.join(' ')}>This is really working!</p>
+      <button className={btnClass} onClick={props.clicked}>
+        Toggle Persons
+      </button>
+    </div>
+  );
+};
 
-
-export default React.memo(cockpit);
+export default React.memo(Cockpit);
