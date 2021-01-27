@@ -16,20 +16,28 @@ import ToDoList from '../components/ToDoList/ToDoList';
 
 const list1 = [];
 
-
-
 function setCookie(cookieName, cookieValue, exdays){
   console.log('[App.js] setCookie fire!!');
 
+  // get current time and set hours to (0,0,0,0) it will represent starting of the current date
+  // thne add 24 hours in starting of current date and set it to expire date.
+  
   const cdate = new Date(); // cdate meaning cookie set date
+  cdate.setUTCHours(0,0,0,0);
+  // console.log(cdate.getTime());
+  
   cdate.setTime(cdate.getTime() + ((exdays)*24*60*60*1000)); 
   const expires = "expires="+ cdate.toUTCString();
   localStorage.setItem('extTime',cdate.getTime());
   console.log('[App,js>setCookie] expires',cdate.toUTCString());
 
   document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
+}
 
-} 
+
+
+
+
 
 function getCookieValue(cookieName){
   const name = cookieName+'=';
@@ -237,4 +245,16 @@ toggleChange (){
     isChecked: !this.state.isChecked,
   });
 }
+
+let now = new Date();
+let newcookie = "smit";
+now.setDate(now.getDate()+1);
+document.cookie="Name : " +newcookie;
+document.cookie="expire" +now.toUTCString();
+let allcookie = document.cookie;
+console.log(allcookie); 
+var start = moment().startOf('day');
+console.log(start);
+var end = moment().endOf('day');
+console.log(end);
 } */

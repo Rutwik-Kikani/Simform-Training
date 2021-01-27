@@ -24,7 +24,7 @@ const toDoList = (props) => {
             checkBoxClicked = {() => {
                 console.log('[ToDoList.js] checkBoxClicked!!');
                 props.checkboxChangeHappen(item,index)}}
-        />)
+            />)
     });
         
     return(
