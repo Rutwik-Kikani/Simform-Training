@@ -4,6 +4,8 @@ import Aux from '../../hoc/Auxiliary';
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Model from '../../components/Ui/Model/Model';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICE = {
     salad:0.5,
@@ -23,10 +25,15 @@ export default class BurgerBuillder extends Component {
             },
             totalPrice:4,
             purchasable: false,
+            purchasing:false,
         }
     }
 
-    updatePurchaseState(ingredients) {
+    //* updatePurchaseState(ingredients){....} also works fine!! //
+    //* you are not using this inside this method so, you can use both syntax
+    //* try to print out 'this' value in both syntax and look inside it see the difference.
+    updatePurchaseState(ingredients){
+        // console.log(this)
         const sum = Object.keys(ingredients)
             .map(igKey => {
                 return ingredients[igKey];
@@ -36,6 +43,7 @@ export default class BurgerBuillder extends Component {
             },0);
         this.setState({purchasable: sum > 0}) ;       
     }
+
     addIngredientHandler = (type) => {
         const oldCount = this.state.ingredients[type];
         const updatedCount = oldCount+1    
@@ -66,6 +74,18 @@ export default class BurgerBuillder extends Component {
         this.setState({totalPrice: newPrice, ingredients: updatedIngredient});
         this.updatePurchaseState(updatedIngredient);
     }
+
+    //*purchaseHandler(){...} is not worked as updatePerchaseState why !! \
+    //* using 'this' inside the method that's why there this value is undefind. 
+    purchaseHandler = () => {
+        this.setState({purchasing: true});
+    }
+    purchaseCancelHandler = () => {
+        this.setState({purchasing: false});
+    }
+    purchaseContinueHandler = () => {
+        alert('You Continued purchase!');
+    }
     render() {
         const disabledInfo = {
             ...this.state.ingredients
@@ -77,12 +97,20 @@ export default class BurgerBuillder extends Component {
 
         return (
             <Aux>   
+                <Model show={this.state.purchasing} modelClosed={this.purchaseCancelHandler}>
+                    <OrderSummary 
+                        ingredients={this.state.ingredients}
+                        purchaseCancelled={this.purchaseCancelHandler}
+                        purchaseContinued={this.purchaseContinueHandler}
+                        price={this.state.totalPrice}/>
+                </Model>
                 <Burger ingredients={this.state.ingredients}></Burger>
                 <BuildControls
                     ingredientAdded={this.addIngredientHandler}
                     ingredientRemoved={this.removeIngredientHandler}
                     disabled = {disabledInfo}
                     purchasable={this.state.purchasable}
+                    ordered={this.purchaseHandler}
                     price={this.state.totalPrice}/>
             </Aux>
         )

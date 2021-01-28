@@ -56,3 +56,21 @@
     background-color: #99703F;
     color: white;
 }
+
+@media(max-width: 780px){
+    .BuildControl{
+        width:50%;
+    }
+}
+
+@media(max-width: 480px){
+    .BuildControl{
+        width:70%;
+    }
+}
+
+@media(max-width: 380px){
+    .BuildControl{
+        width:90%;
+    }
+}
