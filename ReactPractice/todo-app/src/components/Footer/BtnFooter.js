@@ -3,7 +3,18 @@ import './BtnFooter.css';
 
 
 const btnfooter = (props) => {
-    const [btnStyleClasses, inputStyleClasses] = [[],[]];
+    return(
+    <footer>
+        <button id="Button" onClick={() => {props.clicked()}}>+</button>
+        
+    </footer>
+    );
+}
+export default btnfooter
+
+/*
+1.
+const [btnStyleClasses, inputStyleClasses] = [[],[]];
 
     const [state, setstate] = useState({whatToShow:'btn', });
 
@@ -44,13 +55,7 @@ const btnfooter = (props) => {
         btnStyleClasses.push('hide');
         inputStyleClasses.push('show');
     }
-    
-    
-    return(
-    <footer>
-        <button id="Button" className={btnStyleClasses.join(' ')}  onClick={() => {props.clicked()}}>+</button>
-        {/* <input  id="Input"  className={inputStyleClasses.join(' ')} onKeyDown={(event) => {inputKeyHandler(event)}} type="text" autoFocus/> */}
-    </footer>
-    );
-}
-export default btnfooter
+2.
+<button id="Button" className={btnStyleClasses.join(' ')}  onClick={() => {props.clicked()}}>+</button>
+<input  id="Input"  className={inputStyleClasses.join(' ')} onKeyDown={(event) => {inputKeyHandler(event)}} type="text" autoFocus/> 
+*/

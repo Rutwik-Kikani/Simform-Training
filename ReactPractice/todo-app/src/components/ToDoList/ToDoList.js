@@ -28,16 +28,19 @@ const toDoList = (props) => {
     });
         
     return(
-        <ul>
-            {listItems}
-            {/* <ListItem key={0} todoText="Once a fairy tail is guild full of wizards"/> */}
+        <ul style={{overflowX: "hidden"}}>
+            {listItems}            
         </ul>
     );
 }
 
 export default toDoList; 
 
-/*{ While development used but keep it for syntax purpose
+/*
+1.
+{ While development used but keep it for syntax purpose
 changed={() => {props.anyChange(item.status,index)}}
-}*/
+2.
+<ListItem key={0} todoText="Once a fairy tail is guild full of wizards"/> 
+*/
  

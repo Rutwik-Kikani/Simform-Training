@@ -13,7 +13,7 @@ const listItem = (props) => {
       todoTxtStyleClasses.push('done');
       todoCheckBoxStyleClasses.push('done');
     }
-    // console.log(todoCheckBoxStyleClasses);
+    console.log(todoCheckBoxStyleClasses);
 
     
     return(

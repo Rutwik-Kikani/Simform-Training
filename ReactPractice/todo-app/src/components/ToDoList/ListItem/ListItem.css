@@ -1,3 +1,15 @@
+li{
+  margin: 8px 4px;
+  padding:8px 4px;
+  overflow-x: hidden;
+}
+
+li:hover{
+    outline: none;
+    transform: scale(1.03);
+    z-index: 1;
+    transition: z-index 1.15s, transform 1.15s;
+}
 .Label{
     display: grid;
     grid-template-columns: 4fr 1fr;
