@@ -5,7 +5,7 @@ import styles from "./Sidedrawer.module.css";
 import Logo from "../../Logo/Logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import Backdrop from "../../Ui/Backdrop/Backdrop";
-import Aux from "../../../hoc/Auxiliary";
+import Aux from "../../../hoc/Auxiliary/Auxiliary";
 
 const sideDrawer = (props) => {
     let attechedStyles = [styles.Sidedrawer, styles.Close];

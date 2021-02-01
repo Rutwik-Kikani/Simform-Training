@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import style from './Model.module.css';
 
-import Aux from '../../../hoc/Auxiliary';
+import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import Backdrop from '../Backdrop/Backdrop';
 
 class  Model extends Component{
