@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import axios from '../../axios-orders';
 
 import Aux from '../../hoc/Auxiliary';
-
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Model from '../../components/Ui/Model/Model';
@@ -84,7 +84,23 @@ export default class BurgerBuillder extends Component {
         this.setState({purchasing: false});
     }
     purchaseContinueHandler = () => {
-        alert('You Continued purchase!');
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice,
+            customer:{
+                name:'Rutwik',
+                address:{
+                    street: 'TestStreet1',
+                    zipcode:'364002',
+                    country:'india'
+                },
+                email:'dummydummy@gmail.com',
+            },
+            deliveryMethod: 'fastest'
+        }
+        axios.post('/orders.json', order)
+            .then(res => console.log(res))
+            .catch(error => console.log(error));
     }
     render() {
         const disabledInfo = {
