@@ -6,7 +6,6 @@ const btnfooter = (props) => {
     return(
     <footer>
         <button id="Button" onClick={() => {props.clicked()}}>+</button>
-        
     </footer>
     );
 }

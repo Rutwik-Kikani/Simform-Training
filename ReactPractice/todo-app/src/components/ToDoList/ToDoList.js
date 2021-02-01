@@ -5,26 +5,18 @@ import ListItem from'./ListItem/ListItem';
 const toDoList = (props) => {
     
     // console.log('[ToDoList.js] what to come as prop',props);
-
-    const checkBoxChangeHandler = (item, index) => {
-        // console.log('[ToDolist.js] checkbox chnage handler fire');
-    //     //change status of passlist
-        console.log(props.passlist); //this list automaticaly updated why no clue!!
-    }
-
+    
+    //4.
     const listItems = props.passlist.map((item,index) =>{
         // console.log(index);
         return (<ListItem key={index} 
             todoText={item.text} 
             status={item.status}
-            // checkBoxClicked={() => {
-            //     console.log('[ToDoList.js] checkBoxClicked!!');
-            //     checkBoxChangeHandler(item,index);
-            // }} 
+            //3.
             checkBoxClicked = {() => {
-                console.log('[ToDoList.js] checkBoxClicked!!');
+                // console.log('[ToDoList.js] checkBoxClicked!!');
                 props.checkboxChangeHappen(item,index)}}
-            />)
+            />);
     });
         
     return(
@@ -42,5 +34,16 @@ export default toDoList;
 changed={() => {props.anyChange(item.status,index)}}
 2.
 <ListItem key={0} todoText="Once a fairy tail is guild full of wizards"/> 
+3.
+// checkBoxClicked={() => {
+            //     console.log('[ToDoList.js] checkBoxClicked!!');
+            //     checkBoxChangeHandler(item,index);
+            // }} 
+4.
+// const checkBoxChangeHandler = (item, index) => {
+    //     // console.log('[ToDolist.js] checkbox chnage handler fire');
+    // //     //change status of passlist
+    //     console.log(props.passlist); //this list automaticaly updated why no clue!!
+    // }
 */
  

@@ -20,6 +20,7 @@ const header = () => {
               <p className="Day">{dayNames[d.getDay()]}</p>
           </div>
         </div>
+        <hr/>
       </header>
      );
 }

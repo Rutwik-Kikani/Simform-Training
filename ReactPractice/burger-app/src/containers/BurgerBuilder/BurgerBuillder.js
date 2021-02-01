@@ -7,6 +7,7 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Model from '../../components/Ui/Model/Model';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/Ui/Spinner/Spinner';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 const INGREDIENT_PRICE = {
     salad:0.5,
@@ -14,7 +15,7 @@ const INGREDIENT_PRICE = {
     meat:1.3,
     bacon:0.7
 };
-export default class BurgerBuillder extends Component {
+class BurgerBuillder extends Component {
     constructor(props) {
         super(props);
         this.state ={
@@ -143,6 +144,8 @@ export default class BurgerBuillder extends Component {
         )
     }
 }
+
+export default withErrorHandler(BurgerBuillder);
 /**
  *  
  */

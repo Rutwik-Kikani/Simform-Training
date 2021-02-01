@@ -4,20 +4,13 @@ import './App.css';
 /*import Component */
 import Header from '../components/Header/Header';
 import BtnFooter from '../components/Footer/BtnFooter';
-// import ListItem from '../components/ToDoList/ListItem/ListItem';
 import ToDoList from '../components/ToDoList/ToDoList';
-// import getData from '../data/todoListData';
-// import toDoList from "../components/ToDoList/ToDoList";
 
-//get the data of list
-//while develoopment goto todoListData.js  and return todoListData1
-//const list = getData();
-//localStorage.setItem('todo-list',JSON.stringify(list)); 
 
 const list1 = [];
 
 function setCookie(cookieName, cookieValue, exdays){
-  console.log('[App.js] setCookie fire!!');
+  // console.log('[App.js] setCookie fire!!');
 
   // get current time and set hours to (0,0,0,0) it will represent starting of the current date
   // thne add 24 hours in starting of current date and set it to expire date.
@@ -29,15 +22,10 @@ function setCookie(cookieName, cookieValue, exdays){
   cdate.setTime(cdate.getTime() + ((exdays)*24*60*60*1000)); 
   const expires = "expires="+ cdate.toUTCString();
   localStorage.setItem('extTime',cdate.getTime());
-  console.log('[App,js>setCookie] expires',cdate.toUTCString());
+  // console.log('[App,js>setCookie] expires',cdate.toUTCString());
 
   document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
 }
-
-
-
-
-
 
 function getCookieValue(cookieName){
   const name = cookieName+'=';
@@ -65,22 +53,20 @@ function getCookieValue(cookieName){
 }
 
 function removeCookie(cookieName){
-  console.log('[App.js] removeCookie fire!!');
+  // console.log('[App.js] removeCookie fire!!');
   const cdate = new Date();
   cdate.setTime(+localStorage.getItem("extTime"));
-  console.log('[App.js>removeCookie] expires',cdate.toUTCString());
+  // console.log('[App.js>removeCookie] expires',cdate.toUTCString());
   document.cookie = cookieName + "=;"+"expires="+cdate.toUTCString()+ ";path=/";
 }
 
 function updateCookie(cookieName, cookieValue){
-  console.log('[App.js] updateCookie fire!!');
+  // console.log('[App.js] updateCookie fire!!');
   const cdate = new Date();
   cdate.setTime(+localStorage.getItem("extTime"));
-  console.log('[App.js > updateCookie] expires on',cdate.toUTCString());
+  // console.log('[App.js > updateCookie] expires on',cdate.toUTCString());
   document.cookie = cookieName + "="+cookieValue+";"+"expires="+cdate.toUTCString()+";path=/"
 }
-
-
 
 
 class App extends Component {
@@ -135,11 +121,7 @@ class App extends Component {
   }
 
   
-  componentDidUpdate(){
-    console.log('[App.js] component is updated !!');
-
-  }
-
+  
   buttonClickHandler(){
     // console.log('[App.js] btnclickhandler fire');
     this.setState({

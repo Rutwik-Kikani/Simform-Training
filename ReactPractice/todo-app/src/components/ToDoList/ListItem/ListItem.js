@@ -13,7 +13,7 @@ const listItem = (props) => {
       todoTxtStyleClasses.push('done');
       todoCheckBoxStyleClasses.push('done');
     }
-    console.log(todoCheckBoxStyleClasses);
+    
 
     
     return(
@@ -24,7 +24,7 @@ const listItem = (props) => {
                          type="checkbox"
                          checked={isChecked}
                          onChange={() => { 
-                           console.log('[ListItem.js] onChange!');
+                          //  console.log('[ListItem.js] onChange!');
                            setChecked(!isChecked);
                            props.checkBoxClicked();
                           }}
