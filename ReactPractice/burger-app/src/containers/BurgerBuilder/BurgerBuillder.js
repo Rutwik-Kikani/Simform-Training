@@ -6,7 +6,7 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Model from '../../components/Ui/Model/Model';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-
+import Spinner from '../../components/Ui/Spinner/Spinner';
 const INGREDIENT_PRICE = {
     salad:0.5,
     cheese:0.4,
@@ -26,6 +26,7 @@ export default class BurgerBuillder extends Component {
             totalPrice:4,
             purchasable: false,
             purchasing:false,
+            loading: false,
         }
     }
 
@@ -84,6 +85,7 @@ export default class BurgerBuillder extends Component {
         this.setState({purchasing: false});
     }
     purchaseContinueHandler = () => {
+        this.setState({ loading: true });
         const order = {
             ingredients: this.state.ingredients,
             price: this.state.totalPrice,
@@ -99,8 +101,12 @@ export default class BurgerBuillder extends Component {
             deliveryMethod: 'fastest'
         }
         axios.post('/orders.json', order)
-            .then(res => console.log(res))
-            .catch(error => console.log(error));
+            .then(res => {
+                this.setState({ loading: false, purchasing: false })
+            })
+            .catch(error => {
+                this.setState({ loading: false, purchasing: false })
+            });
     }
     render() {
         const disabledInfo = {
@@ -114,11 +120,14 @@ export default class BurgerBuillder extends Component {
         return (
             <Aux>   
                 <Model show={this.state.purchasing} modelClosed={this.purchaseCancelHandler}>
-                    <OrderSummary 
+                   {this.state.loading?
+                    <Spinner/>
+                    :<OrderSummary 
                         ingredients={this.state.ingredients}
                         purchaseCancelled={this.purchaseCancelHandler}
                         purchaseContinued={this.purchaseContinueHandler}
                         price={this.state.totalPrice}/>
+                   } 
                 </Model>
                 <Burger ingredients={this.state.ingredients}></Burger>
                 <BuildControls
@@ -128,7 +137,11 @@ export default class BurgerBuillder extends Component {
                     purchasable={this.state.purchasable}
                     ordered={this.purchaseHandler}
                     price={this.state.totalPrice}/>
+                    
             </Aux>
         )
     }
 }
+/**
+ *  
+ */

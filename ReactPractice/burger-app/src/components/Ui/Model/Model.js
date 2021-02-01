@@ -8,12 +8,12 @@ import Backdrop from '../Backdrop/Backdrop';
 class  Model extends Component{
     
     shouldComponentUpdate(nextProps, nextState){
-        console.log('[Model.js] checking for should update or not!!')
-        return nextProps.show !== this.props.show;
+        // console.log('[Model.js] checking for should update or not!!')
+        return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
     }
 
     componentDidUpdate(){
-        console.log('[Model.js] component updated');
+        // console.log('[Model.js] component updated');
     }
 
     render(){
