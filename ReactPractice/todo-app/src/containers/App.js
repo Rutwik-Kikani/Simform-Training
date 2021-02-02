@@ -155,6 +155,7 @@ class App extends Component {
             }break;
             case "Esc":
             case "Escape": {
+                this.setState({showBtn: true});
                 evt.target.value='';
             }break;
         }

@@ -1,23 +1,37 @@
-import axios from 'axios';
+
 import React, { Component } from 'react';
 
 import Model from '../../components/Ui/Model/Model';
 import Aux from '../Auxiliary/Auxiliary';
 
-const withErrorHandler = (WrappedComponent) => {
+const withErrorHandler = (WrappedComponent,axios) => {
     return class extends Component{
-        state = {
-            error: null,
+        constructor(props) {
+            super(props);
+            this.state = {
+                error: null,
+            }
         }
-        componentDidMount(){
-            axios.interceptors.request.use(req=>{
-                this.setState({error: null});
-                return req;
-            });
-            axios.interceptors.response.use(res => res, error => {
-                this.setState({error: error});
-            })
+        componentWillMount(){
+            this.reqInterceptor = axios.interceptors.request.use(
+                req => {
+                    this.setState({ error: null })
+                    return req;
+                });
+     
+            this.resInterceptor = axios.interceptors.response.use(
+                res => res, error => {
+                    this.setState({ error: error });
+                });
+    
         }
+        
+        componentWillUnmount(){
+            console.log('[withErrorHandler.js] willUnMount',this.resInterceptor,this.reqInterceptor);
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor);
+        }
+        
         errorConfirmedHandler = () => {
             this.setState({error: null});
         }
@@ -25,8 +39,9 @@ const withErrorHandler = (WrappedComponent) => {
         render(){
             return (
                 <Aux>
-                    <Model show>
-                        Somthing didn't work!
+                    <Model show={this.state.error}
+                           modelClosed={this.errorConfirmedHandler}>
+                        {this.state.error ? this.state.error.message : null}
                     </Model>
                     <WrappedComponent {...this.props} />
                 </Aux>

@@ -19,19 +19,23 @@ class BurgerBuillder extends Component {
     constructor(props) {
         super(props);
         this.state ={
-            ingredients:{
-                salad:0,
-                bacon:0,
-                cheese:0,
-                meat:0
-            },
+            ingredients:null,
             totalPrice:4,
             purchasable: false,
             purchasing:false,
             loading: false,
+            error: false,
         }
     }
 
+    componentDidMount(){
+        axios.get('/ingredients.json')
+            .then(res => {
+                this.setState({ ingredients: res.data });
+            }).catch( err => {
+                this.setState({ error : true });
+            });
+    }
     //* updatePurchaseState(ingredients){....} also works fine!! //
     //* you are not using this inside this method so, you can use both syntax
     //* try to print out 'this' value in both syntax and look inside it see the difference.
@@ -110,6 +114,7 @@ class BurgerBuillder extends Component {
                 this.setState({ loading: false, purchasing: false })
             });
     }
+
     render() {
         const disabledInfo = {
             ...this.state.ingredients
@@ -119,33 +124,42 @@ class BurgerBuillder extends Component {
             disabledInfo[key] = disabledInfo[key]<=0;
         } //create this kind of {meat: true, salad: false,...}
 
+        let orderSummary = null;
+        let burger = this.state.error ? <p style={{textAlign:'center'}}>Ingredients can't be loaded!</p> : <Spinner />;
+        if(this.state.ingredients){
+            burger = (
+                <Aux>
+                    <Burger ingredients={this.state.ingredients}></Burger>
+                    <BuildControls
+                        ingredientAdded={this.addIngredientHandler}
+                        ingredientRemoved={this.removeIngredientHandler}
+                        disabled = {disabledInfo}
+                        purchasable={this.state.purchasable}
+                        ordered={this.purchaseHandler}
+                        price={this.state.totalPrice}/> 
+                </Aux>
+            );
+            orderSummary = <OrderSummary 
+                ingredients={this.state.ingredients}
+                purchaseCancelled={this.purchaseCancelHandler}
+                purchaseContinued={this.purchaseContinueHandler}
+                price={this.state.totalPrice}/>;
+        }
+        if(this.state.loading){
+            orderSummary = <Spinner/>
+        }
         return (
             <Aux>   
                 <Model show={this.state.purchasing} modelClosed={this.purchaseCancelHandler}>
-                   {this.state.loading?
-                    <Spinner/>
-                    :<OrderSummary 
-                        ingredients={this.state.ingredients}
-                        purchaseCancelled={this.purchaseCancelHandler}
-                        purchaseContinued={this.purchaseContinueHandler}
-                        price={this.state.totalPrice}/>
-                   } 
+                   {orderSummary}     
                 </Model>
-                <Burger ingredients={this.state.ingredients}></Burger>
-                <BuildControls
-                    ingredientAdded={this.addIngredientHandler}
-                    ingredientRemoved={this.removeIngredientHandler}
-                    disabled = {disabledInfo}
-                    purchasable={this.state.purchasable}
-                    ordered={this.purchaseHandler}
-                    price={this.state.totalPrice}/>
-                    
+                {burger}
             </Aux>
         )
     }
 }
 
-export default withErrorHandler(BurgerBuillder);
+export default withErrorHandler(BurgerBuillder,axios);
 /**
  *  
  */
