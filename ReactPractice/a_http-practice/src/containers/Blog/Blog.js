@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { NavLink, Route, Switch, Redirect } from 'react-router-dom';
 
 import './Blog.css';
 
 import Posts from '../Blog/Posts/Posts';
-import NewPost from '../Blog/NewPost/NewPost';
+// import NewPost from '../Blog/NewPost/NewPost';
+import asyncComponent from '../../hoc/asyncComponent';
+
+const AsyncNewPost = asyncComponent(() => {
+    return import('../Blog/NewPost/NewPost');
+});
+
+
 class Blog extends Component {  
+    state={
+        auth: true,
+    }
 
     render () {        
         return (
@@ -13,18 +23,27 @@ class Blog extends Component {
                 <header>
                     <nav>
                         <ul>
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to={{
+                            <li><NavLink to="/posts/" 
+                                        exact
+                                        activeClassName='my-active'
+                                        activeStyle={{color:'orange',textDecoration:'underline'}}>Posts</NavLink></li>
+                            <li><NavLink to={{
                                 pathname: '/new-post',
                                 hash: '#submit',
                                 search: '?quick-submit=true',
-                            }}>New Post</Link></li>
+                            }}>New Post</NavLink></li>
                         </ul>
                     </nav>
                 </header>
-                <Route exact path="/" component={Posts}/>
-                <Route exact path="/new-post" component={NewPost}/>
-
+                {/* //use redirect in side switch */}
+                <Switch>
+                    {this.state.auth?<Route path="/new-post" component={AsyncNewPost}/>:null}
+                    <Route path='/posts' component={Posts}/>
+                    <Route render={() => <h1>not found</h1>}></Route>
+                    {/* <Redirect from="/" to="/posts"/> */}
+                </Switch>
+                
+                
             </div>
         );
     }

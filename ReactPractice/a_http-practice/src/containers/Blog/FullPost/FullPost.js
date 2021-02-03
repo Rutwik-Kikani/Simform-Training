@@ -9,24 +9,29 @@ class FullPost extends Component {
         loadedPost: null,
     }
 
+    componentDidMount(){
+        console.log(this.props);
+        this.loadData();         
+    }
     componentDidUpdate(){
-        if(this.props.id) //if id coming from props is null then not make request.
+        this.loadData();
+    }
+    loadData(){
+        if(this.props.match.params.id) //if id coming from props is null then not make request.
         {  
             if(!this.state.loadedPost //make request if we don't have loadedpost or 
-                || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)) //have a loaded post and that post id not match the id coming from props
+                || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id)) //have a loaded post and that post id not match the id coming from props
                 {  
-                axios.get("/posts/"+this.props.id)
+                axios.get("/posts/"+this.props.match.params.id)
                 .then((response) => {
                         // console.log(response);
                         this.setState({loadedPost: response.data});
                 });
             }
         }
-        
     }
-
     deletePostHandler= () => {
-        axios.delete("/posts/"+this.state.id)
+        axios.delete("/posts/"+this.props.match.params.id)
         .then(resp => {
             console.log(resp);
         })
@@ -34,7 +39,7 @@ class FullPost extends Component {
 
     render () {
         let post = <p style={{textAlign:'center'}}>Please select a Post!</p>;
-        if(this.props.id){
+        if(this.props.match.params.id){
             post = <p style={{textAlign:'center'}}>Loading...!</p>;
         }
         if(this.state.loadedPost){
