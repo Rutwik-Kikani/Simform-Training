@@ -10,22 +10,22 @@ class Counter extends Component {
     //     counter: 0
     // }
 
-    counterChangedHandler = ( action, value ) => {
-        switch ( action ) {
-            case 'inc':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + 1 } } )
-                break;
-            case 'dec':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - 1 } } )
-                break;
-            case 'add':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + value } } )
-                break;
-            case 'sub':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - value } } )
-                break;
-        }
-    }
+    // counterChangedHandler = ( action, value ) => {
+    //     switch ( action ) {
+    //         case 'inc':
+    //             this.setState( ( prevState ) => { return { counter: prevState.counter + 1 } } )
+    //             break;
+    //         case 'dec':
+    //             this.setState( ( prevState ) => { return { counter: prevState.counter - 1 } } )
+    //             break;
+    //         case 'add':
+    //             this.setState( ( prevState ) => { return { counter: prevState.counter + value } } )
+    //             break;
+    //         case 'sub':
+    //             this.setState( ( prevState ) => { return { counter: prevState.counter - value } } )
+    //             break;
+    //     }
+    // }
 
     render () {
         return (
@@ -37,10 +37,12 @@ class Counter extends Component {
                 <CounterControl label="Subtract 5" clicked={this.props.onSubtrackCounter}  />
                 <hr/>
                 <button onClick={() => this.props.onStoreResult(this.props.ctr)}> Store Result </button>
-                <ul>
+                <ul style={{listStyle:'none'}}>
                     {this.props.storedResult.map((strResult) => {
                         return (
-                    <li key={strResult.id} onClick={() => this.props.onDeleteResult(strResult.id)}>{strResult.value}</li>
+                    <li style={{width: '80%', margin:'2px auto', padding:'5px', textAlign:'center', fontWeight:'bold', border:'1px solid black'}}
+                        key={strResult.id} 
+                        onClick={() => this.props.onDeleteResult(strResult.id)}>{strResult.value+ ' Click Me!'}</li>
                         )
                     })}
                 </ul>
