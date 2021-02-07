@@ -9,7 +9,7 @@ import Model from '../../components/Ui/Model/Model';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/Ui/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import * as actionTypes from '../../store/actions';
+import * as actionCreators from '../../store/actions/index'
 
 
 //4...
@@ -17,23 +17,13 @@ class BurgerBuillder extends Component {
     constructor(props) {
         super(props);
         this.state ={
-            // ingredients:null,
-            // totalPrice:4,
-            // purchasable: false,
-            purchasing:false,
-            loading: false,
-            error: false,
+            purchasable: false,
         }
     }
 
     componentDidMount(){
-        // console.log(this.props);
-        // axios.get('/ingredients.json')
-        //     .then(res => {
-        //         this.setState({ ingredients: res.data });
-        //     }).catch( err => {
-        //         this.setState({ error : true });
-        //     });
+        //5...
+        this.props.onInitIngredients();
     }
 
     //* updatePurchaseState(ingredients){....} also works fine!! //
@@ -69,19 +59,8 @@ class BurgerBuillder extends Component {
 
     //1...
     purchaseContinueHandler = () => {
-        
-        // let queryParams = [];
-        // for(let i in this.state.ingredients){
-        //     queryParams.push(encodeURIComponent(i)+'='+encodeURIComponent(this.props.ings[i]));
-        // }
-        // queryParams.push('price='+this.props.price);
-        // const queryString= queryParams.join('&');
-        
-        // this.props.history.push({
-        //     pathname:'/checkout',
-        //     search:'?'+queryString,
-        // });
-
+        //6...
+        this.props.onInitPurchase();
         this.props.history.push({pathname:'/checkout',});
     }
 
@@ -95,7 +74,7 @@ class BurgerBuillder extends Component {
         } //create this kind of {meat: true, salad: false,...}
 
         let orderSummary = null;
-        let burger = this.state.error ? <p style={{textAlign:'center'}}>Ingredients can't be loaded!</p> : <Spinner />;
+        let burger = this.props.error ? <p style={{textAlign:'center'}}>Ingredients can't be loaded!</p> : <Spinner />;
         if(this.props.ings){
             burger = (
                 <Aux>
@@ -115,9 +94,9 @@ class BurgerBuillder extends Component {
                 purchaseContinued={this.purchaseContinueHandler}
                 price={this.props.price}/>;
         }
-        if(this.state.loading){
-            orderSummary = <Spinner/>
-        }
+        // if(this.state.loading){
+        //     orderSummary = <Spinner/>
+        // }
         return (
             <Aux>   
                 <Model show={this.state.purchasing} modelClosed={this.purchaseCancelHandler}>
@@ -131,15 +110,18 @@ class BurgerBuillder extends Component {
 
 const mapStateToProps = state => {
     return{
-        ings: state.ingredients,
-        price: state.totalPrice,
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        error: state.burgerBuilder.error,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-        onIngredientAdded: (ingName) => dispatch({type:actionTypes.ADD_INGREDIENT, ingredientName:ingName}),
-        onIngredientRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName}),
+        onIngredientAdded: (ingName) => dispatch(actionCreators.addIngredient(ingName)),
+        onIngredientRemoved: (ingName) => dispatch(actionCreators.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(actionCreators.initIngredients()),
+        onInitPurchase: () => dispatch(actionCreators.purchaseInit()),
     }
 }
 
@@ -152,7 +134,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Bur
         this.setState({ loading: true });
         const order = {
             ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
+            price: this.state.totalPrice, 
             customer:{
                 name:'Rutwik',
                 address:{
@@ -213,6 +195,38 @@ export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Bur
 //     meat:1.3,
 //     bacon:0.7
 // };
+    
+    5.
+    // console.log(this.props);
+        // axios.get('/ingredients.json')
+        //     .then(res => {
+        //         this.setState({ ingredients: res.data });
+        //     }).catch( err => {
+        //         this.setState({ error : true });
+        //     });
 
+    6.
+    // let queryParams = [];
+        // for(let i in this.state.ingredients){
+        //     queryParams.push(encodeURIComponent(i)+'='+encodeURIComponent(this.props.ings[i]));
+        // }
+        // queryParams.push('price='+this.props.price);
+        // const queryString= queryParams.join('&');
+        
+        // this.props.history.push({
+        //     pathname:'/checkout',
+        //     search:'?'+queryString,
+        // });
+
+    7.
+
+    this.state ={
+            // ingredients:null,
+            // totalPrice:4,
+            // purchasable: false,
+            // purchasing:false,
+            // loading: false,
+            // error: false,
+        }
  *  
  */

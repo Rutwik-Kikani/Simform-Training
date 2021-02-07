@@ -5,6 +5,9 @@ import axios from '../../../axios-orders';
 import Button from "../../../components/Ui/Button/Button";
 import Spinner from "../../../components/Ui/Spinner/Spinner";
 import Input from '../../../components/Ui/Input/Input';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+
+import * as actionCreators from '../../../store/actions/index';
 
 import styles from "./ContactData.module.css";
 class ContactData extends Component {
@@ -85,19 +88,19 @@ class ContactData extends Component {
                         {value: 'cheapest', displayValue:'Cheapest'},
                     ]
                 },
-                value:'',
+                value:'fastest',
                 validation: {},
                 valid: true,
             },
         },
         formIsValid: false,
-        loading: false,
+        // loading: false,
     };
 
     orderHandler = (event) => {
         event.preventDefault();
         // console.log(this.props.ingredients);
-        this.setState({ loading: true });
+        // this.setState({ loading: true });
         const formData = {};
 
         for(let formEleIdentifier in this.state.orderForm){
@@ -109,15 +112,9 @@ class ContactData extends Component {
             price: this.props.price,
             orderData: formData
         };
-        axios
-            .post("/orders.json", order)
-            .then((res) => {
-                this.setState({ loading: false });
-                this.props.history.push('/');
-            })
-            .catch((error) => {
-                this.setState({ loading: false });
-            });
+
+        this.props.onOrderBurger(order);
+        //
     };
     
     checkValidity(value, rules){
@@ -190,9 +187,10 @@ class ContactData extends Component {
             </Button>
         </form>);
 
-        if(this.state.loading){
+        if(this.props.loading){
             form = <Spinner/>
         }
+
         return (
             <div className={styles.ContactData}>
                 <h4>Enter your data here</h4>
@@ -204,8 +202,29 @@ class ContactData extends Component {
 
 const mapStateToProps = (state) => {
     return{
-        ings: state.ingredients,
-        price: state.totalPrice,
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading
     }
 }
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = (dispatch) => {
+    return{
+        onOrderBurger : (orderData) => dispatch(actionCreators.purchaseBurger(orderData))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
+
+
+/*----------------------------------------------------*/
+/**
+ * 1.
+ * // axios
+        //     .post("/orders.json", order)
+        //     .then((res) => {
+        //         this.setState({ loading: false });
+        //         this.props.history.push('/');
+        //     })
+        //     .catch((error) => {
+        //         this.setState({ loading: false });
+        //     });
+ */
