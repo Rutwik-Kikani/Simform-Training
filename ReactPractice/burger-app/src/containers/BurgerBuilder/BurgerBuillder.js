@@ -50,7 +50,12 @@ class BurgerBuillder extends Component {
     //*purchaseHandler(){...} is not worked as updatePerchaseState why !! \
     //* using 'this' inside the method that's why there this value is undefind. 
     purchaseHandler = () => {
-        this.setState({purchasing: true});
+        if(this.props.isAuthenticated){
+            this.setState({purchasing: true});            
+        }else{
+            this.props.onSetAuthRedirectPath('/checkout');
+            this.props.history.push('/auth');
+        }
     }
 
     purchaseCancelHandler = () => {
@@ -85,6 +90,7 @@ class BurgerBuillder extends Component {
                         disabled = {disabledInfo}
                         purchasable={this.updatePurchaseState(this.props.ings)}
                         ordered={this.purchaseHandler}
+                        isAuth={this.props.isAuthenticated}
                         price={this.props.price}/> 
                 </Aux>
             );
@@ -113,6 +119,7 @@ const mapStateToProps = state => {
         ings: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
         error: state.burgerBuilder.error,
+        isAuthenticated: state.auth.token !== null,
     }
 }
 
@@ -122,6 +129,7 @@ const mapDispatchToProps = dispatch => {
         onIngredientRemoved: (ingName) => dispatch(actionCreators.removeIngredient(ingName)),
         onInitIngredients: () => dispatch(actionCreators.initIngredients()),
         onInitPurchase: () => dispatch(actionCreators.purchaseInit()),
+        onSetAuthRedirectPath: (path) => dispatch(actionCreators.setAuthRedirectPath(path)),
     }
 }
 
