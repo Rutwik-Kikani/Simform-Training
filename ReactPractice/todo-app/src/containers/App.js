@@ -128,7 +128,9 @@ class App extends Component {
       showBtn: !this.state.showBtn,
     });    
   }
-
+  someHandler = () => {
+    
+  } 
   inputKeyHandler(event){
     // console.log('[App.js] inputkeyhandler fire');
     let evt = event || window.event;
