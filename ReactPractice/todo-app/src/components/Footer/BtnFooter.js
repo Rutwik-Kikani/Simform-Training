@@ -11,6 +11,7 @@ const btnfooter = (props) => {
 }
 export default btnfooter
 
+
 /*
 1.
 const [btnStyleClasses, inputStyleClasses] = [[],[]];

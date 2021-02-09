@@ -132,7 +132,7 @@ class Auth extends Component{
 
         if(this.props.error){
             errorMessage = (
-                <p>{this.props.error.message}</p>  
+                <p style={{color:'crimson',fontWeight:'bold'}}>{this.props.error.message}</p>  
             );
         }
 
