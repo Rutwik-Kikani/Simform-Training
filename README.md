@@ -1,2 +1,2 @@
 # simform-training
-My work and demos during training
+Mono repository for my practice demos and training demo.
