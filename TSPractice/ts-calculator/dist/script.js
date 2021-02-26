@@ -115,8 +115,8 @@ document.onkeydown = function (event) {
             }
         }
     }
-    else {
-        // do nothing
-    }
+    // else{
+    // //     // do nothing
+    // }
 };
 //# sourceMappingURL=script.js.map
